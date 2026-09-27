@@ -26,9 +26,9 @@ import cadeirasAsset from "@/assets/cadeiras-dallas.jpg.asset.json";
 import sinucaAsset from "@/assets/area-sinuca.jpg.asset.json";
 import poleAsset from "@/assets/barber-pole.jpg.asset.json";
 import detalhesAsset from "@/assets/detalhes-classicos.jpg.asset.json";
-import apresentacaoAsset from "@/assets/dallas-apresentacao.mp4.asset.json";
+import apresentacaoAsset from "@/assets/dallas-apresentacao.webm.asset.json";
 import detalheManSalonAsset from "@/assets/detalhe-man-salon.jpg.asset.json";
-import detalhesDallasVideoAsset from "@/assets/detalhes-dallas.mp4.asset.json";
+import detalhesDallasVideoAsset from "@/assets/detalhes-dallas.webm.asset.json";
 
 const mediaOrigin = "https://dallas-barbershop-go.lovable.app";
 const mediaUrl = (path: string) => `/api/public/media?path=${encodeURIComponent(new URL(path, mediaOrigin).pathname)}`;
