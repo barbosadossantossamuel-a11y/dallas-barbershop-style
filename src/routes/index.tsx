@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ChevronDown,
@@ -26,6 +26,7 @@ import cadeirasAsset from "@/assets/cadeiras-dallas.jpg.asset.json";
 import sinucaAsset from "@/assets/area-sinuca.jpg.asset.json";
 import poleAsset from "@/assets/barber-pole.jpg.asset.json";
 import detalhesAsset from "@/assets/detalhes-classicos.jpg.asset.json";
+import apresentacaoAsset from "@/assets/dallas-apresentacao.mp4.asset.json";
 
 const navItems = [
   ["Início", "#inicio"],
@@ -112,17 +113,68 @@ function Header() {
   );
 }
 
+function GalleryCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const interactingRef = useRef(false);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      const track = trackRef.current;
+      if (!track || interactingRef.current) return;
+
+      const firstCard = track.firstElementChild as HTMLElement | null;
+      const step = firstCard ? firstCard.offsetWidth + 12 : track.clientWidth * 0.82;
+      const reachedEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - step / 2;
+      track.scrollTo({ left: reachedEnd ? 0 : track.scrollLeft + step, behavior: "smooth" });
+    }, 3500);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  return (
+    <div
+      ref={trackRef}
+      className="gallery-track -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-3 md:-mx-8 md:px-8"
+      onPointerDown={() => { interactingRef.current = true; }}
+      onPointerUp={() => { interactingRef.current = false; }}
+      onPointerCancel={() => { interactingRef.current = false; }}
+      onMouseEnter={() => { interactingRef.current = true; }}
+      onMouseLeave={() => { interactingRef.current = false; }}
+      aria-label="Galeria de fotos da Dallas Barbearia"
+    >
+      {gallery.map((image, index) => (
+        <figure key={image.src} className="group relative aspect-[4/5] w-[82vw] max-w-[390px] shrink-0 snap-center overflow-hidden rounded-sm border border-border bg-background shadow-2xl md:w-[34vw] lg:w-[29vw]">
+          <img src={image.src} alt={image.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+          <figcaption className="absolute bottom-0 left-0 border-r border-t border-primary/60 bg-background/85 px-4 py-2 text-[0.62rem] font-bold uppercase tracking-widest text-primary backdrop-blur-md">
+            Dallas Barbearia · 0{index + 1}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
+
 function DallasHome() {
   return (
     <main className="bg-background text-foreground">
       <Header />
 
       <section id="inicio" className="relative flex min-h-[92svh] items-end overflow-hidden pt-18">
-        <img src={equipeAsset.url} alt="Equipe da Dallas Barbearia no salão" className="absolute inset-0 h-full w-full object-cover object-[49%_40%]" />
+        <video
+          className="absolute inset-0 h-full w-full object-cover object-center"
+          src={apresentacaoAsset.url}
+          poster={equipeAsset.url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label="Apresentação em vídeo da Dallas Barbearia"
+        />
         <div className="image-shade absolute inset-0" />
-        <div className="absolute inset-0 bg-background/20" />
+        <div className="absolute inset-0 bg-background/30" />
         <div className="section-shell relative z-10 pb-14 pt-32 text-center md:pb-20">
-          <BrandLogo className="mx-auto mb-4 h-28 w-28 drop-shadow-2xl md:h-36 md:w-36" />
+          <BrandLogo className="mx-auto mb-4 h-28 w-28 rounded-full border border-primary/60 shadow-2xl md:h-36 md:w-36" />
           <p className="mb-3 text-[0.68rem] font-bold uppercase tracking-[0.28em] text-primary">Tradição, precisão e personalidade</p>
           <h1 className="font-display text-4xl font-semibold uppercase leading-tight md:text-7xl">Dallas Barbearia</h1>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-foreground/85 md:text-lg">Seu estilo, nossa tradição. Uma experiência de cuidado masculino feita nos detalhes.</p>
@@ -174,9 +226,8 @@ function DallasHome() {
       <section id="galeria" className="border-y border-border bg-surface py-20 md:py-28">
         <div className="section-shell">
           <SectionHeading eyebrow="Conheça nosso espaço" title="Galeria Dallas" copy="Ambiente, estrutura e atendimento reais da Dallas Barbearia." />
-          <div className="grid auto-rows-[220px] gap-2 md:grid-cols-3 md:auto-rows-[260px]">
-            {gallery.map((image) => <figure key={image.src} className={`group overflow-hidden rounded-sm ${image.className}`}><img src={image.src} alt={image.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" /></figure>)}
-          </div>
+          <GalleryCarousel />
+          <p className="mt-4 text-center text-[0.65rem] font-bold uppercase tracking-widest text-muted-foreground">Deslize para ver mais</p>
         </div>
       </section>
 
