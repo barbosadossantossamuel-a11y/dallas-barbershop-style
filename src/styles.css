@@ -66,6 +66,7 @@
   --color-primary-bright: var(--primary-bright);
   --color-border-strong: var(--border-strong);
   --color-success: var(--success);
+  --color-instagram: var(--instagram);
 }
 
 :root {
@@ -94,6 +95,7 @@
   --surface: oklch(0.135 0.009 70);
   --surface-raised: oklch(0.175 0.014 70);
   --success: oklch(0.72 0.17 148);
+  --instagram: oklch(0.68 0.22 350);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);

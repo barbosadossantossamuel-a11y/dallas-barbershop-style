@@ -197,11 +197,21 @@ function DallasHome() {
           <p className="mb-3 text-[0.68rem] font-bold uppercase tracking-[0.28em] text-primary">Tradição, precisão e personalidade</p>
           <h1 className="font-display text-4xl font-semibold uppercase leading-tight md:text-7xl">Dallas Barbearia</h1>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-foreground/85 md:text-lg">Seu estilo, nossa tradição. Uma experiência de cuidado masculino feita nos detalhes.</p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <SiteButton href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={17} /> Agendar pelo WhatsApp</SiteButton>
-            <SiteButton href="#servicos" variant="outline">Conhecer serviços <ArrowRight size={16} /></SiteButton>
+          <div className="mx-auto mt-8 max-w-2xl">
+            <SiteButton href={whatsappUrl} target="_blank" rel="noreferrer" className="w-full sm:w-auto sm:min-w-72"><MessageCircle size={18} /> Agendar horário</SiteButton>
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <SiteButton href={whatsappUrl} target="_blank" rel="noreferrer" variant="outline" className="min-h-20 border-success/60 bg-background/80 px-3 hover:border-success hover:text-success sm:min-h-24 sm:justify-start sm:px-6">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-sm border border-success/50 text-success"><MessageCircle size={21} /></span>
+                <span className="min-w-0 text-left"><span className="block text-[0.55rem] font-medium text-muted-foreground sm:text-[0.62rem]">Contato</span><span className="mt-1 block text-[0.68rem] text-foreground sm:text-sm">WhatsApp</span></span>
+              </SiteButton>
+              <SiteButton href={siteContent.instagramUrl} target="_blank" rel="noreferrer" variant="outline" className="min-h-20 border-instagram/60 bg-background/80 px-3 hover:border-instagram hover:text-instagram sm:min-h-24 sm:justify-start sm:px-6">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-sm border border-instagram/50 text-instagram"><Instagram size={21} /></span>
+                <span className="min-w-0 text-left"><span className="block text-[0.55rem] font-medium text-muted-foreground sm:text-[0.62rem]">Nosso perfil</span><span className="mt-1 block text-[0.68rem] text-foreground sm:text-sm">Instagram</span></span>
+              </SiteButton>
+            </div>
           </div>
-          <div className="mx-auto mt-9 flex max-w-sm items-center justify-center gap-2 text-xs text-muted-foreground"><MapPin size={15} className="text-primary" /> Santa Genoveva · Goiânia</div>
+          <a href="#servicos" className="mx-auto mt-6 inline-flex items-center justify-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-muted-foreground transition-colors hover:text-primary">Conhecer serviços <ArrowRight size={14} /></a>
+          <div className="mx-auto mt-5 flex max-w-sm items-center justify-center gap-2 text-xs text-muted-foreground"><MapPin size={15} className="text-primary" /> Santa Genoveva · Goiânia</div>
         </div>
       </section>
 
