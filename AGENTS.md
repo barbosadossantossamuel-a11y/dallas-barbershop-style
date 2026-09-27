@@ -12,3 +12,4 @@
 ## Project architecture
 
 - Keep editable business copy, links, and service data centralized in `src/lib/site-content.ts` so future updates stay consistent across sections.
+- Resolve Lovable CDN media pointers through the canonical published origin so images and videos also load on external hosts such as Vercel.
