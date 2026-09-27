@@ -31,7 +31,7 @@ import detalheManSalonAsset from "@/assets/detalhe-man-salon.jpg.asset.json";
 import detalhesDallasVideoAsset from "@/assets/detalhes-dallas.mp4.asset.json";
 
 const mediaOrigin = "https://dallas-barbershop-go.lovable.app";
-const mediaUrl = (path: string) => new URL(path, mediaOrigin).href;
+const mediaUrl = (path: string) => `/api/public/media?path=${encodeURIComponent(new URL(path, mediaOrigin).pathname)}`;
 
 const navItems = [
   ["Início", "#inicio"],
