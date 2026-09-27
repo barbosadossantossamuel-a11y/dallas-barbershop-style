@@ -27,6 +27,11 @@ import sinucaAsset from "@/assets/area-sinuca.jpg.asset.json";
 import poleAsset from "@/assets/barber-pole.jpg.asset.json";
 import detalhesAsset from "@/assets/detalhes-classicos.jpg.asset.json";
 import apresentacaoAsset from "@/assets/dallas-apresentacao.mp4.asset.json";
+import detalheManSalonAsset from "@/assets/detalhe-man-salon.jpg.asset.json";
+import detalhesDallasVideoAsset from "@/assets/detalhes-dallas.mp4.asset.json";
+
+const mediaOrigin = "https://dallas-barbershop-go.lovable.app";
+const mediaUrl = (path: string) => new URL(path, mediaOrigin).href;
 
 const navItems = [
   ["Início", "#inicio"],
@@ -39,12 +44,14 @@ const navItems = [
 ] as const;
 
 const gallery = [
-  { src: salaoAsset.url, alt: "Interior da Dallas Barbearia com estações de atendimento", className: "md:col-span-2 md:row-span-2" },
-  { src: atendimentoAsset.url, alt: "Barbeiro da Dallas realizando atendimento", className: "" },
-  { src: equipeAsset.url, alt: "Equipe da Dallas Barbearia", className: "" },
-  { src: cadeirasAsset.url, alt: "Cadeiras clássicas da Dallas Barbearia", className: "" },
-  { src: sinucaAsset.url, alt: "Área de convivência com mesa de sinuca", className: "" },
-  { src: detalhesAsset.url, alt: "Detalhes clássicos do salão", className: "" },
+  { src: mediaUrl(salaoAsset.url), alt: "Interior da Dallas Barbearia com estações de atendimento", type: "image" },
+  { src: mediaUrl(detalhesDallasVideoAsset.url), poster: mediaUrl(detalheManSalonAsset.url), alt: "Vídeo com detalhes da Dallas Barbearia", type: "video" },
+  { src: mediaUrl(detalheManSalonAsset.url), alt: "Parede decorativa da Dallas Barbearia", type: "image" },
+  { src: mediaUrl(atendimentoAsset.url), alt: "Barbeiro da Dallas realizando atendimento", type: "image" },
+  { src: mediaUrl(equipeAsset.url), alt: "Equipe da Dallas Barbearia", type: "image" },
+  { src: mediaUrl(cadeirasAsset.url), alt: "Cadeiras clássicas da Dallas Barbearia", type: "image" },
+  { src: mediaUrl(sinucaAsset.url), alt: "Área de convivência com mesa de sinuca", type: "image" },
+  { src: mediaUrl(detalhesAsset.url), alt: "Detalhes clássicos do salão", type: "image" },
 ];
 
 export const Route = createFileRoute("/")({
@@ -62,7 +69,7 @@ export const Route = createFileRoute("/")({
 });
 
 function BrandLogo({ className = "" }: { className?: string }) {
-  return <img src={logoAsset.url} alt="Dallas Barbearia" className={`aspect-square object-contain ${className}`} />;
+  return <img src={mediaUrl(logoAsset.url)} alt="Dallas Barbearia" className={`aspect-square object-contain ${className}`} />;
 }
 
 function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: string; copy?: string }) {
@@ -144,7 +151,11 @@ function GalleryCarousel() {
     >
       {gallery.map((image, index) => (
         <figure key={image.src} className="group relative aspect-[4/5] w-[82vw] max-w-[390px] shrink-0 snap-center overflow-hidden rounded-sm border border-border bg-background shadow-2xl md:w-[34vw] lg:w-[29vw]">
-          <img src={image.src} alt={image.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+          {image.type === "video" ? (
+            <video src={image.src} poster={image.poster} aria-label={image.alt} muted loop autoPlay playsInline preload="auto" className="h-full w-full object-cover" />
+          ) : (
+            <img src={image.src} alt={image.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+          )}
           <figcaption className="absolute bottom-0 left-0 border-r border-t border-primary/60 bg-background/85 px-4 py-2 text-[0.62rem] font-bold uppercase tracking-widest text-primary backdrop-blur-md">
             Dallas Barbearia · 0{index + 1}
           </figcaption>
@@ -162,8 +173,8 @@ function DallasHome() {
       <section id="inicio" className="relative flex min-h-[92svh] items-end overflow-hidden pt-18">
         <video
           className="absolute inset-0 h-full w-full object-cover object-center"
-          src={apresentacaoAsset.url}
-          poster={equipeAsset.url}
+          src={mediaUrl(apresentacaoAsset.url)}
+          poster={mediaUrl(equipeAsset.url)}
           autoPlay
           muted
           loop
@@ -189,7 +200,7 @@ function DallasHome() {
       <section id="sobre" className="border-y border-border bg-surface py-20 md:py-28">
         <div className="section-shell grid items-center gap-10 md:grid-cols-[0.92fr_1.08fr] md:gap-16">
           <div className="relative">
-            <img src={atendimentoAsset.url} alt="Atendimento na Dallas Barbearia" loading="lazy" className="aspect-[4/5] w-full rounded-sm object-cover" />
+            <img src={mediaUrl(atendimentoAsset.url)} alt="Atendimento na Dallas Barbearia" loading="lazy" className="aspect-[4/5] w-full rounded-sm object-cover" />
             <div className="absolute -bottom-4 -right-2 border border-primary bg-background px-5 py-4 md:-right-5"><p className="font-display text-lg text-primary">Cuidado em cada detalhe</p></div>
           </div>
           <div>
@@ -248,7 +259,7 @@ function DallasHome() {
       </section>
 
       <section id="avaliacoes" className="relative overflow-hidden border-y border-border bg-surface py-20 md:py-28">
-        <div className="absolute inset-y-0 right-0 hidden w-1/3 md:block"><img src={poleAsset.url} alt="Detalhe clássico da barbearia" loading="lazy" className="h-full w-full object-cover opacity-25" /><div className="absolute inset-0 bg-gradient-to-r from-surface to-transparent" /></div>
+        <div className="absolute inset-y-0 right-0 hidden w-1/3 md:block"><img src={mediaUrl(poleAsset.url)} alt="Detalhe clássico da barbearia" loading="lazy" className="h-full w-full object-cover opacity-25" /><div className="absolute inset-0 bg-gradient-to-r from-surface to-transparent" /></div>
         <div className="section-shell relative">
           <div className="max-w-3xl">
             <div className="mb-7 flex h-14 w-14 items-center justify-center rounded-sm border border-primary text-primary"><Star size={25} /></div>
@@ -266,7 +277,7 @@ function DallasHome() {
 
       <section id="localizacao" className="py-20 md:py-28">
         <div className="section-shell grid overflow-hidden border border-border md:grid-cols-2">
-          <div className="min-h-[360px] bg-surface"><img src={sinucaAsset.url} alt="Área de convivência da Dallas Barbearia" loading="lazy" className="h-full w-full object-cover" /></div>
+          <div className="min-h-[360px] bg-surface"><img src={mediaUrl(sinucaAsset.url)} alt="Área de convivência da Dallas Barbearia" loading="lazy" className="h-full w-full object-cover" /></div>
           <div className="flex flex-col justify-center bg-surface-raised p-7 md:p-12">
             <p className="mb-3 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-primary">Localização</p>
             <h2 className="font-display text-3xl uppercase md:text-4xl">Venha conhecer a Dallas</h2>
@@ -285,7 +296,7 @@ function DallasHome() {
       </section>
 
       <section id="contato" className="relative overflow-hidden py-24 text-center md:py-32">
-        <img src={cadeirasAsset.url} alt="Cadeiras da Dallas Barbearia" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-25" /><div className="absolute inset-0 bg-background/75" />
+        <img src={mediaUrl(cadeirasAsset.url)} alt="Cadeiras da Dallas Barbearia" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-25" /><div className="absolute inset-0 bg-background/75" />
         <div className="section-shell relative"><p className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-primary">Sua vez</p><h2 className="mt-4 font-display text-4xl uppercase md:text-6xl">Seu próximo corte<br />começa aqui.</h2><SiteButton href={whatsappUrl} target="_blank" rel="noreferrer" className="mt-9"><MessageCircle size={18} /> Agendar meu horário</SiteButton></div>
       </section>
 
