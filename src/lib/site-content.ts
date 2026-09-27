@@ -4,8 +4,8 @@ export const siteContent = {
   addressLines: ["Posto Rede Carreteiro 10", "Av. São Francisco, 40", "Goiânia - GO"],
   mapsUrl: "https://maps.app.goo.gl/6ocUioCkosxCWuNE8",
   reviewsUrl: "https://share.google/3PQIwwPWFU7sBtSdL",
-  instagramUrl: "",
-  instagramHandle: "Instagram da Dallas",
+  instagramUrl: "https://www.instagram.com/barbeariadallasfilial?stkn=MXVvNzQxdXYyMW81OA==",
+  instagramHandle: "@barbeariadallasfilial",
   hours: "Consulte os horários disponíveis pelo WhatsApp.",
   services: [
     { name: "Corte masculino", description: "Clássico, moderno ou degradê, com acabamento preciso." },
