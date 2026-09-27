@@ -100,9 +100,14 @@ function Header() {
         <nav aria-label="Navegação principal" className="hidden justify-center gap-5 lg:flex">
           {navItems.map(([label, href]) => <a key={href} href={href} className="text-[0.66rem] font-bold uppercase tracking-widest text-muted-foreground transition-colors hover:text-primary">{label}</a>)}
         </nav>
-        <SiteButton href={whatsappUrl} target="_blank" rel="noreferrer" className="hidden min-h-10 px-4 py-2 lg:inline-flex">
-          Agendar
-        </SiteButton>
+        <div className="hidden items-center gap-2 lg:flex">
+          <SiteButton href={siteContent.instagramUrl} target="_blank" rel="noreferrer" variant="quiet" className="h-10 min-h-10 px-3 py-2" aria-label="Abrir Instagram da Dallas Barbearia" title="Instagram">
+            <Instagram size={18} />
+          </SiteButton>
+          <SiteButton href={whatsappUrl} target="_blank" rel="noreferrer" className="min-h-10 px-4 py-2">
+            <MessageCircle size={16} /> WhatsApp
+          </SiteButton>
+        </div>
         <button aria-label={open ? "Fechar menu" : "Abrir menu"} aria-expanded={open} onClick={() => setOpen((value) => !value)} className="col-start-3 grid h-11 w-11 place-items-center justify-self-end rounded-sm border border-border text-foreground lg:hidden">
           {open ? <X size={21} /> : <Menu size={21} />}
         </button>
@@ -112,7 +117,10 @@ function Header() {
           <nav className="section-shell flex flex-col py-4" aria-label="Menu mobile">
             <div className="mb-4 flex items-center gap-3 border-b border-border pb-4"><BrandLogo className="h-12 w-12" /><span className="font-display text-sm text-primary">DALLAS BARBEARIA</span></div>
             {navItems.map(([label, href]) => <a key={href} href={href} onClick={() => setOpen(false)} className="border-b border-border py-3 text-xs font-bold uppercase tracking-widest text-foreground">{label}</a>)}
-            <SiteButton href={whatsappUrl} target="_blank" rel="noreferrer" className="mt-4">Agendar pelo WhatsApp</SiteButton>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <SiteButton href={siteContent.instagramUrl} target="_blank" rel="noreferrer" variant="outline"><Instagram size={18} /> Instagram</SiteButton>
+              <SiteButton href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={18} /> WhatsApp</SiteButton>
+            </div>
           </nav>
         </div>
       ) : null}
@@ -311,13 +319,15 @@ function DallasHome() {
         </div>
       </section>
 
-      <footer className="border-t border-border bg-surface py-12 pb-24 md:pb-12">
-        <div className="section-shell grid gap-10 md:grid-cols-3">
+      <footer className="relative overflow-hidden border-t border-border py-12 pb-24 md:pb-12">
+        <img src={mediaUrl(detalheManSalonAsset.url)} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center opacity-30" />
+        <div className="absolute inset-0 bg-background/85" />
+        <div className="section-shell relative grid gap-10 md:grid-cols-3">
           <div><BrandLogo className="h-24 w-24" /><p className="mt-4 max-w-xs text-sm leading-6 text-muted-foreground">Dallas Barbearia. Tradição, cuidado e personalidade em Goiânia.</p></div>
           <div><p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary">Navegue</p><div className="grid grid-cols-2 gap-3">{navItems.slice(1, 7).map(([label, href]) => <a key={href} href={href} className="text-sm text-muted-foreground transition-colors hover:text-primary">{label}</a>)}</div></div>
-          <div><p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary">Contato</p><a href={whatsappUrl} target="_blank" rel="noreferrer" className="block text-sm text-muted-foreground hover:text-primary">(62) 99906-0802</a><a href={siteContent.mapsUrl} target="_blank" rel="noreferrer" className="mt-3 block text-sm leading-6 text-muted-foreground hover:text-primary">{siteContent.addressLines.join(" · ")}</a><a href={siteContent.reviewsUrl} target="_blank" rel="noreferrer" className="mt-3 block text-sm text-muted-foreground hover:text-primary">Avaliações no Google</a></div>
+          <div><p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary">Contato</p><a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary"><MessageCircle size={16} /> (62) 99906-0802</a><a href={siteContent.instagramUrl} target="_blank" rel="noreferrer" className="mt-3 flex items-center gap-2 text-sm text-muted-foreground hover:text-primary"><Instagram size={16} /> {siteContent.instagramHandle}</a><a href={siteContent.mapsUrl} target="_blank" rel="noreferrer" className="mt-3 block text-sm leading-6 text-muted-foreground hover:text-primary">{siteContent.addressLines.join(" · ")}</a><a href={siteContent.reviewsUrl} target="_blank" rel="noreferrer" className="mt-3 block text-sm text-muted-foreground hover:text-primary">Avaliações no Google</a></div>
         </div>
-        <div className="section-shell mt-10 border-t border-border pt-6 text-xs text-muted-foreground">© {new Date().getFullYear()} Dallas Barbearia. Todos os direitos reservados.</div>
+        <div className="section-shell relative mt-10 border-t border-border pt-6 text-xs text-muted-foreground">© {new Date().getFullYear()} Dallas Barbearia. Todos os direitos reservados.</div>
       </footer>
 
       <a href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Agendar pelo WhatsApp" className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-success text-primary-foreground shadow-xl transition-transform hover:scale-105 md:bottom-7 md:right-7"><MessageCircle size={25} /></a>
