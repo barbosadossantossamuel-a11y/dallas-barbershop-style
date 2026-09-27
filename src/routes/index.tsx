@@ -45,7 +45,7 @@ const navItems = [
 
 const gallery = [
   { src: mediaUrl(salaoAsset.url), alt: "Interior da Dallas Barbearia com estações de atendimento", type: "image" },
-  { src: mediaUrl(detalhesDallasVideoAsset.url), alt: "Vídeo com detalhes da Dallas Barbearia", type: "video" },
+  { src: mediaUrl(detalhesDallasVideoAsset.url), poster: mediaUrl(detalheManSalonAsset.url), alt: "Vídeo com detalhes da Dallas Barbearia", type: "video" },
   { src: mediaUrl(detalheManSalonAsset.url), alt: "Parede decorativa da Dallas Barbearia", type: "image" },
   { src: mediaUrl(atendimentoAsset.url), alt: "Barbeiro da Dallas realizando atendimento", type: "image" },
   { src: mediaUrl(equipeAsset.url), alt: "Equipe da Dallas Barbearia", type: "image" },
@@ -152,7 +152,7 @@ function GalleryCarousel() {
       {gallery.map((image, index) => (
         <figure key={image.src} className="group relative aspect-[4/5] w-[82vw] max-w-[390px] shrink-0 snap-center overflow-hidden rounded-sm border border-border bg-background shadow-2xl md:w-[34vw] lg:w-[29vw]">
           {image.type === "video" ? (
-            <video src={image.src} aria-label={image.alt} muted loop autoPlay playsInline preload="metadata" className="h-full w-full object-cover" />
+            <video src={image.src} poster={image.poster} aria-label={image.alt} muted loop autoPlay playsInline preload="auto" className="h-full w-full object-cover" />
           ) : (
             <img src={image.src} alt={image.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
           )}
